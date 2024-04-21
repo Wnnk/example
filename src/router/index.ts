@@ -17,7 +17,7 @@ const router = createRouter({
     {
       path:'/lazy',
       name:'lazy',
-      component: () => import('@/views/Lazy/lazyImage.vue')
+      component: () => import('@/views/Lazy/index.vue')
     },
     {
       path:'/layout',
@@ -35,7 +35,17 @@ const router = createRouter({
           component: () => import('@/views/Layout/gridLayout.vue')
         }
       ]
-    }
+    },
+    {
+      path: '/waterFall',
+      name: 'waterFall',
+      component: () => import('@/views/WaterFall/waterFall.vue')
+    },
+    {
+      path:"/menuContent",
+      name:"menuContent",
+      component: () => import('@/views/MenuContent/indexPage.vue')
+    },
   ]
 })
 
