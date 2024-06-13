@@ -15,7 +15,7 @@ const screenHeight = ref(0);
 /* 偏移量 */
 const startOffset = ref(0);
 /* 开始索引 */
-const starIndex = ref(0);
+const startIndex = ref(0);
 /* 结束索引 */
 const endIndex = ref(0);
 
@@ -40,7 +40,7 @@ const visibleCount = computed(() => {
 
 const visibleData = computed(() => {
   return listData.value.slice(
-    starIndex.value,
+    startIndex.value,
     Math.min(endIndex.value, listData.value.length)
   )
 });
@@ -59,17 +59,17 @@ const getTransform = computed(() => {
 
 const handleScroll = () => {
   const scrollTop = list.value!.scrollTop;
-  starIndex.value = Math.floor(scrollTop / itemSize.value);
-  endIndex.value = starIndex.value + visibleCount.value;
+  startIndex.value = Math.floor(scrollTop / itemSize.value);
+  endIndex.value = startIndex.value + visibleCount.value;
   startOffset.value = scrollTop - (scrollTop % itemSize.value);
-  // console.log(scrollTop, startOffset.value, starIndex.value, endIndex.value);
+  // console.log(scrollTop, startOffset.value, startIndex.value, endIndex.value);
 };
 
 onMounted(() => {
   getDataSource(100);
   initPosition();
   screenHeight.value = list.value!.clientHeight;
-  endIndex.value = starIndex.value + visibleCount.value;
+  endIndex.value = startIndex.value + visibleCount.value;
 });
 
 

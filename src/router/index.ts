@@ -46,6 +46,11 @@ const router = createRouter({
       name:"menuContent",
       component: () => import('@/views/MenuContent/indexPage.vue')
     },
+    {
+      path:'/echarts',
+      name:'echarts',
+      component: () => import('@/views/Echarts/testEchart.vue'),
+    }
   ]
 })
 
