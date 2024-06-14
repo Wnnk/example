@@ -50,6 +50,11 @@ const router = createRouter({
       path:'/echarts',
       name:'echarts',
       component: () => import('@/views/Echarts/testEchart.vue'),
+    },
+    {
+      path:'/fullEchart',
+      name:'fullEchart',
+      component: () => import('@/views/FullEchart/FullEchart.vue'),
     }
   ]
 })

@@ -18,12 +18,12 @@ onUnmounted(() => {
 })
 
 
-
+const navShow = ref(false);
 </script>
 
 <template>
   <div class="app">
-    <mainLeftNav />
+    <mainLeftNav v-show="navShow"></mainLeftNav>
     <router-view></router-view>
     <!-- <div class="text">
       <h1>{{ fontSize }}</h1>
