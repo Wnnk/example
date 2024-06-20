@@ -5,27 +5,62 @@ import RadarBar from './RadarBar.vue'
 import RelationBar from './RelationBar.vue'
 import RingBar from './RingBar.vue'
 import TotalData from './TotalData.vue'
-import VerticalBar from './VerticalBar.vue'
+import FunctionArea from './FunctionArea.vue'
 import WordCloud from './WordCloud.vue'
+import setCurrentColor from './setCurrentColor.vue'
+import {
+  getHorizontalBarData,
+  getWorldCloudData,
+  getMapData,
+  getTotalData,
+} from '@/api/echartData'
+import { ref, onMounted } from 'vue'
+
+const horizontalBarData = ref();
+const worldCloudData = ref();
+const mapData = ref();
+const totalData = ref();
+const showFunctionArea = ref(false);
+
+const showFunctionAreaHandler = (e: Event) => {
+  // e.stopPropagation()
+  showFunctionArea.value = !showFunctionArea.value
+}
+
+const FunctionAreaAfterLeave = () => {
+  console.log('FunctionAreaAfterLeave')
+  showFunctionArea.value = false
+}
+
+onMounted(async () => {
+  horizontalBarData.value = await getHorizontalBarData()
+  worldCloudData.value = await getWorldCloudData()
+  mapData.value = await getMapData()
+  totalData.value = await getTotalData()
+})
+
 </script>
 
 <template>
   <div class="full-echart">
     <div class="left">
-      <HorizontalBar />
+      <HorizontalBar v-if="horizontalBarData" :data="horizontalBarData.regions" />
       <RadarBar />
       <RelationBar />
     </div>
     <div class="center">
-      <TotalData class="total-data" />
-      <MapChart class="map-chart" />
+      <TotalData class="total-data" v-if="totalData" :data="totalData" />
+      <MapChart class="map-chart" v-if="mapData" :data="mapData" />
     </div>
     <div class="right">
-      <VerticalBar />
+      <FunctionArea :showFunctionAreaHandler="showFunctionAreaHandler" />
       <RingBar />
-      <WordCloud />
+      <WordCloud v-if="worldCloudData" :data="worldCloudData.datas" />
     </div>
+    <setCurrentColor v-if="showFunctionArea" :showFunctionAreaHandler="showFunctionAreaHandler"
+      :showFunctionArea="showFunctionArea" @after-leave="FunctionAreaAfterLeave" />
   </div>
+
 </template>
 
 <style lang='scss' scoped>
@@ -57,7 +92,7 @@ import WordCloud from './WordCloud.vue'
 .center {
   margin: 12px;
   display: grid;
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: 1fr 2fr;
 
   .total-data {
     background-color: rgba(61, 72, 82, 0.5);
@@ -76,7 +111,7 @@ import WordCloud from './WordCloud.vue'
   background-color: rgba(61, 72, 82, 0.5);
   margin: 12px;
   display: grid;
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: 100px 1fr 1fr;
   padding: 8px;
 }
 

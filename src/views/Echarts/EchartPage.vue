@@ -2,6 +2,9 @@
 import { ref, onMounted, watch, shallowRef } from 'vue'
 import { useEcharts, type EChartsCoreOption } from '@/hooks/useEcharts'
 import { useThemeStore } from '@/stores/themeStore'
+import { echartColorStore } from '@/stores/echartColor.ts'
+
+const echartColor = echartColorStore();
 
 interface Props {
   options: EChartsCoreOption
@@ -16,6 +19,8 @@ watch(
   () => props.options,
   (nVal) => {
     let targetOptions: EChartsCoreOption = {};
+    // targetOptions = { ...nVal }
+    // targetOptions.color = echartColor.currentColor;
     if (themeStore.currentColorArray && themeStore.currentColorArray.length > 0) {
       targetOptions = { ...nVal }
       targetOptions.color = themeStore.currentColorArray;
@@ -26,8 +31,17 @@ watch(
   }
 )
 
+// watch(
+//   () => themeStore.currentColorArray,
+//   (nVal) => {
+//     currentOptions.value.color = nVal;
+//     setOptions(currentOptions.value);
+//     console.log('themeStore.currentColorArray', currentOptions.value)
+//   }
+// )
+
 watch(
-  () => themeStore.currentColorArray,
+  () => echartColor.currentColor,
   (nVal) => {
     currentOptions.value.color = nVal;
     setOptions(currentOptions.value);
