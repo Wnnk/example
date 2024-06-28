@@ -42,11 +42,6 @@ const router = createRouter({
       component: () => import('@/views/WaterFall/waterFall.vue')
     },
     {
-      path:"/menuContent",
-      name:"menuContent",
-      component: () => import('@/views/MenuContent/indexPage.vue')
-    },
-    {
       path:'/echarts',
       name:'echarts',
       component: () => import('@/views/Echarts/testEchart.vue'),
@@ -55,6 +50,21 @@ const router = createRouter({
       path:'/fullEchart',
       name:'fullEchart',
       component: () => import('@/views/FullEchart/FullEchart.vue'),
+    },
+    {
+      path: '/select',
+      name:'select',
+      component: () => import('@/views/Select/SelectIndex.vue')
+    },
+    {
+      path:'/slot',
+      name:'slot',
+      component: () => import('@/views/Slot/SlotIndex.vue')
+    },
+    {
+      path:'/input',
+      name:'input',
+      component: () => import('@/views/Input/InputExample.vue')
     }
   ]
 })

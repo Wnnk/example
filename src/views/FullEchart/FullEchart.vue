@@ -104,6 +104,7 @@ onMounted(async () => {
     background-color: rgba(61, 72, 82, 0.5);
     padding: 8px;
     margin-top: 12px;
+    min-height: 500px;
   }
 }
 
